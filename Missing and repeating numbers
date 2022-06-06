@@ -1,0 +1,37 @@
+#include <bits/stdc++.h> 
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	long long sum1=0,sq=0;
+        pair<int,int> ans;
+        for(int i=0;i<n;i++)
+        {
+            sum1+=arr[i]-(i+1);
+            sq+=(arr[i]*arr[i])-(i+1)*(i+1);
+        }
+        if(sum1>0)
+        {
+            for(int i=1;i<=n-sum1;i++)
+            {
+                if((i+sum1)*(i+sum1)-(i*i)==sq)
+                {
+                    ans.second=i+sum1;
+                    ans.first=i;
+                }
+            }
+        }
+        else
+        {
+            sum1*=-1;
+            sq*=-1;
+            for(int i=1;i<=n-sum1;i++)
+            {
+                if((i+sum1)*(i+sum1)-(i*i)==sq)
+                {
+                    ans.first=i+sum1;
+                    ans.second=i;
+                }
+            }
+        }
+        return ans;
+}
