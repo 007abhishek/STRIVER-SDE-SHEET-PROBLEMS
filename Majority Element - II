@@ -1,0 +1,18 @@
+#include <bits/stdc++.h> 
+vector<int> majorityElementII(vector<int> &arr)
+{
+    vector<int> v;
+    int n=arr.size();
+    sort(arr.begin(),arr.end());
+    for(int i=0;i<n;)
+    {
+        int temp=0;
+        do{
+            temp++;
+            i++;
+        }while(i<n && arr[i]==arr[i-1]);
+        if(temp>n/3)
+            v.push_back(arr[i-1]);
+    }
+    return v;
+}
