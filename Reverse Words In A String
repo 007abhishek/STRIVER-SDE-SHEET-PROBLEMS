@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+string reverseString(string str)
+{
+    int n=str.length();
+    for(int i=0;i<n;i++)
+    {
+        if(str[i]!=' ')
+        {
+            int strtindex=i;
+            int endindex=i;
+            while(endindex+1<n && str[endindex+1]!=' ')
+                endindex++,i++;
+            reverse(str.begin()+strtindex,str.begin()+endindex+1);
+        }
+    }
+    reverse(str.begin(),str.end());
+    string ans="";
+    for(int i=0;i<n;i++)
+    {
+        if(ans=="")
+        {
+            if(str[i]!=' ')
+            {
+                while(i<n && str[i]!=' ')
+                    ans+=str[i],i++;
+            }
+        }
+        else
+        {
+            if(str[i]!=' ')
+            {
+                ans+=" ";
+                while(i<n && str[i]!=' ')
+                    ans+=str[i],i++;
+            }
+        }
+    }
+    return ans;
+}
