@@ -1,0 +1,59 @@
+class Node{
+public:
+    int data;
+    Node *next;
+    Node(int x)
+    {
+        data=x;
+        next=NULL;
+    }
+};
+
+class Queue {
+public:
+    Node *head=NULL;
+    Node *curr=NULL;
+    int size=0;
+    Queue() {
+        // Implement the Constructor
+    }
+
+    /*----------------- Public Functions of Queue -----------------*/
+
+    bool isEmpty() {
+        return (size==0);
+    }
+
+    void enqueue(int data) {
+        Node *temp=new Node(data);
+        if(curr==NULL)
+        {
+            head=temp;
+            curr=temp;
+        }
+        else
+        {
+            curr->next=temp;
+            curr=curr->next;
+        }
+        size++;
+    }
+
+    int dequeue() {
+        if(head==NULL)
+            return -1;
+        size--;
+        int temp=head->data;
+        head=head->next;
+        if(head==NULL)
+            curr=head;
+
+        return temp;
+    }
+
+    int front() {
+        if(head==NULL)
+            return -1;
+        return head->data;
+    }
+};
