@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+int longestSubSeg(vector<int> &arr , int n, int k){
+    queue<int> q;
+    int ans=0;
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]==1)
+            q.push(1);
+        else
+        {
+            if(k>0)
+                k--;
+            else
+            {
+                while(!q.empty())
+                {
+                    if(q.front()==0)
+                    {
+                        q.pop();
+                        break;
+                    }
+                    else
+                    q.pop();
+                }
+            }
+            q.push(0);
+        }
+        if(q.size()>ans)
+            ans=q.size();
+    }
+    return ans;
+}
