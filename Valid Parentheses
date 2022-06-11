@@ -1,0 +1,36 @@
+bool isValidParenthesis(string expression)
+{
+    int n=expression.length();
+    stack<char> s;
+    for(int i=0;i<n;i++)
+    {
+        if(expression[i]=='['||expression[i]=='('||expression[i]=='{')
+            s.push(expression[i]);
+        else if(s.empty())
+            return false;
+        else if(expression[i]==']')
+        {
+            if(s.top()=='[')
+                s.pop();
+            else
+                return false;
+        }
+        else if(expression[i]==')')
+        {
+            if(s.top()=='(')
+                s.pop();
+            else
+                return false;
+        }
+        else if(expression[i]=='}')
+        {
+            if(s.top()=='{')
+                s.pop();
+            else
+                return false;
+        }
+    }
+    if(s.empty())
+    return true;
+    return false;
+}
