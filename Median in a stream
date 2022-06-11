@@ -1,0 +1,21 @@
+vector<int> findMedian(vector<int> &arr, int n){
+	
+	vector<int> ans(n,0);
+    ans[0]=arr[0];
+    vector<int> temp;
+    temp.push_back(arr[0]);
+    for(int i=1;i<n;i++)
+    {
+        int j=i-1;
+        temp.push_back(arr[i]);
+        while(j>=0 && temp[j]>temp[j+1])
+            swap(temp[j],temp[j+1]),j--;
+        
+        if(i%2==0)
+            ans[i]=temp[i/2];
+        else
+            ans[i]=(temp[i/2]+temp[i/2+1])/2;
+        
+    }
+    return ans;
+}
