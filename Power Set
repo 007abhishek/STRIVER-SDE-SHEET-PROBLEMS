@@ -1,0 +1,19 @@
+void powerSet(int i,int n,vector<int> &v,vector<int> temp,vector<vector<int> > &ans)
+{
+        if(i==n)
+        {
+            ans.push_back(temp);
+            return;
+        }
+        powerSet(i+1,n,v,temp,ans);
+        temp.push_back(v[i]);
+        powerSet(i+1,n,v,temp,ans);
+}
+vector<vector<int>> pwset(vector<int>v)
+{
+    int n=v.size();
+    vector<vector<int> > ans;
+    vector<int> temp;
+    powerSet(0,n,v,temp,ans);
+    return ans;
+}
