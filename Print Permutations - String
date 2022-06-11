@@ -1,0 +1,21 @@
+void solve(int i,int n,string s,vector<string> &ans)
+{
+   if(i==n)
+   {
+       ans.push_back(s);
+       return;
+   }
+    for(int j=i;j<n;j++)
+    {
+        swap(s[j],s[i]);
+        solve(i+1,n,s,ans);
+        swap(s[j],s[i]);
+    }
+    
+}
+vector<string> findPermutations(string &s) {
+    int n=s.length();
+    vector<string> ans;
+    solve(0,n,s,ans);
+    return ans;
+}
