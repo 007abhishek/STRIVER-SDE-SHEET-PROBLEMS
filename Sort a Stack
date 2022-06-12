@@ -1,0 +1,31 @@
+void insert(int temp,stack<int>&s)
+{
+    if(s.empty())
+    {    
+        s.push(temp);
+        return;
+    }
+     if(s.top()<=temp)
+    {
+        s.push(temp);
+        return;
+    }
+    int t=s.top();
+    s.pop();
+    insert(temp,s);
+    s.push(t);
+}
+void solve(int i,int n,stack<int>&s)
+{
+    if(i==n)
+        return;
+    int temp=s.top();
+    s.pop();
+    solve(i+1,n,s);
+    insert(temp,s);
+}
+void sortStack(stack<int> &stack)
+{
+	int n=stack.size();
+    solve(1,n,stack);
+}
