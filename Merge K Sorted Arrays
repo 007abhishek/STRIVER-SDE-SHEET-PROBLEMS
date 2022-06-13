@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+class Triplet{
+    public:
+    int data,ArrayIndex,dataindex;
+    Triplet(int a,int b,int c)
+    {
+        data=a;
+        ArrayIndex=b;
+        dataindex=c;
+    }
+};
+class compare{
+  public:
+    bool operator()(Triplet a,Triplet b)
+    {
+        return a.data>b.data;
+    }
+};
+vector<int> mergeKSortedArrays(vector<vector<int>>&kArrays, int k)
+{
+    priority_queue<Triplet,vector<Triplet>,compare> pq;
+    for(int i=0;i<k;i++)
+    {
+        Triplet a(kArrays[i][0],i,0);
+        pq.push(a);
+    }
+    vector<int> ans;
+    while(!pq.empty())
+    {
+        Triplet temp=pq.top();
+        pq.pop();
+        ans.push_back(temp.data);
+        if(temp.dataindex<kArrays[temp.ArrayIndex].size()-1)
+        {
+            Triplet a(kArrays[temp.ArrayIndex][temp.dataindex+1],temp.ArrayIndex,temp.dataindex+1);
+            pq.push(a);
+        }
+    }
+    return ans;
+}
