@@ -1,0 +1,11 @@
+bool findPattern(string p, string s)
+{
+    int n=s.length()-p.length();
+    for(int i=0;i<=n;i++)
+    {
+        string str=s.substr(i,p.length());
+        if(str==p)
+            return true;
+    }
+    return false;
+}
