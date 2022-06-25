@@ -56,3 +56,32 @@ Node *rotate(Node *head, int k) {
     }
     return ans;
 }
+
+// Other Solution without using space
+/*
+Node *rotate(Node *head, int k) {
+    int n=0;
+    Node *temp=head;
+    while(temp)
+        n++,temp=temp->next;
+    k=n-k%n;
+    if(k==n)
+        return head;
+    n=k;
+    Node *ans=NULL;
+    temp=head;
+    k--;
+    while(k)
+    temp=temp->next,k--;
+    
+    Node *temp1=temp->next;
+    temp->next=NULL;
+    ans=temp1;
+    
+    while(temp1->next)
+         temp1=temp1->next;   
+    
+    temp1->next=head;
+    return ans;
+}
+*/
