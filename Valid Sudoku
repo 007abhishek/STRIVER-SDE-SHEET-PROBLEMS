@@ -1,0 +1,48 @@
+bool isSafe(int r,int c,int k,int m[9][9])
+{
+    for(int i=0;i<9;i++)
+        if(m[i][c]==k || m[r][i]==k)
+            return false;
+    int rs=r-r%3;
+    int cs=c-c%3;
+    
+    for(int i=0;i<3;i++)
+        for(int j=0;j<3;j++)
+            if(m[i+rs][j+cs]==k)
+                return false;
+    return true;
+}
+bool check(int m[9][9])
+{
+    int i,j;
+    for(i=0;i<9;i++)
+    {
+        bool flag=false;
+        for(j=0;j<9;j++)
+            if(m[i][j]==0)
+            {
+                flag=true;
+                break;   
+            }
+        if(flag)
+            break;
+    }
+    if(i==9 && j==9)
+        return true;
+    for(int k=1;k<=9;k++)
+    {
+        if(isSafe(i,j,k,m))
+        {
+            m[i][j]=k;
+            if(check(m))
+                return true;
+            m[i][j]=0;
+        }
+    }
+    return false;
+}
+bool isItSudoku(int matrix[9][9]) {
+    if(check(matrix))
+        return true;
+    return false;
+}
