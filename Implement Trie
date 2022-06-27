@@ -1,0 +1,65 @@
+/*
+    Your Trie object will be instantiated and called as such:
+    Trie* obj = new Trie();
+    obj->insert(word);
+    bool check2 = obj->search(word);
+    bool check3 = obj->startsWith(prefix);
+ */
+
+
+class Trie {
+
+public:
+    Trie *child[26];
+    bool isEnd=false;
+    Trie() {
+    }
+    Trie *root=NULL;
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        if(root==NULL)
+        {
+            Trie *temp=new Trie();
+            root=temp;
+        }
+        int n=word.length();
+        Trie *temp=root;
+        for(int i=0;i<n;i++)
+        {
+            if(temp->child[word[i]-'a']==NULL)
+                temp->child[word[i]-'a']=new Trie();
+            temp=temp->child[word[i]-'a'];
+        }
+        temp->isEnd=true;
+    }
+
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        if(root==NULL)
+            return false;
+        int n=word.length();
+        Trie *temp=root;
+        for(int i=0;i<n;i++)
+        {
+            if(temp->child[word[i]-'a']==NULL)
+                return false;
+            temp=temp->child[word[i]-'a'];
+        }
+        return temp->isEnd;
+    }
+
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        if(root==NULL)
+            return false;
+        int n=prefix.length();
+        Trie *temp=root;
+        for(int i=0;i<n;i++)
+        {
+            if(temp->child[prefix[i]-'a']==NULL)
+                return false;
+            temp=temp->child[prefix[i]-'a'];
+        }
+        return true;
+    }
+};
