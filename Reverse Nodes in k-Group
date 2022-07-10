@@ -1,0 +1,69 @@
+#include <bits/stdc++.h> 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+Node *getListAfterReverseOperation(Node *head, int n, int b[]){
+	if(head==NULL || head->next==NULL)
+        return head;
+    int length=0;
+    Node *temp=head;
+    while(temp)
+        length++,temp=temp->next;
+    
+    Node *dummyHead=new Node(0);
+    dummyHead->next=head;
+    Node *prev=dummyHead;
+    Node *curr,*next;
+    int j=0;
+    while(j<n && length>=b[j])
+    {
+        if(b[j]==0)
+        {
+            j++;
+            continue;
+        }
+        curr=prev->next;
+        next=curr->next;
+        for(int i=1;i<b[j];i++)
+        {
+            curr->next=next->next;
+            next->next=prev->next;
+            prev->next=next;
+            next=curr->next;
+        }
+        prev=curr;
+        length-=b[j++];
+    }
+    // If next Array element is greater than length
+    // SO in this case we reverse length elements
+    if(length && j<n)
+    {
+        curr=prev->next;
+        next=curr->next;
+        for(int i=1;i<length;i++)
+        {
+            curr->next=next->next;
+            next->next=prev->next;
+            prev->next=next;
+            next=curr->next;
+        }
+        prev=curr;
+        length=0;
+    }
+    return dummyHead->next;
+}
