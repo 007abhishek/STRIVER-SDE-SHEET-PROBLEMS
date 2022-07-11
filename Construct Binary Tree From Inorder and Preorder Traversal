@@ -1,0 +1,38 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+TreeNode<int> *build(int &x,int i,int j,vector<int> &inorder, vector<int> &preorder)
+{
+    if(i>j)
+        return NULL;
+    TreeNode<int> *root=new TreeNode<int>(preorder[x]);
+    int k=i;
+    for(;k<=j;k++)
+        if(preorder[x]==inorder[k])
+            break;
+    x=x+1;
+    root->left=build(x,i,k-1,inorder,preorder);
+    root->right=build(x,k+1,j,inorder,preorder);
+    return root;
+}
+TreeNode<int> *buildBinaryTree(vector<int> &inorder, vector<int> &preorder)
+{
+    int x=0;
+    return build(x,0,inorder.size()-1,inorder,preorder);
+}
