@@ -1,0 +1,19 @@
+string writeAsYouSpeak(int n) 
+{
+	string ans="1";
+    for(int i=2;i<=n;i++)
+    {
+        string s=ans;
+        ans="";
+        int n1=s.length(),j=0;
+        while(j<n1)
+        {
+            int c=1;
+            while(j+1<n1 && s[j]==s[j+1])
+                j++,c++;
+            ans+=to_string(c)+s[j];
+            j++;
+        }
+    }
+    return ans;
+}
