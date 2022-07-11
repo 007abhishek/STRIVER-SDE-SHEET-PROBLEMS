@@ -1,0 +1,12 @@
+#include<bits/stdc++.h>
+int distinctSubstring(string &word) {
+    unordered_set<string>s;
+    int n=word.length();
+    for(int i=0;i<n;i++)
+    {
+        string str="";
+        for(int j=i;j<n;j++)
+            str.push_back(word[j]),s.insert(str);
+    }
+    return s.size();
+}
