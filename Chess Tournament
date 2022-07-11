@@ -1,0 +1,27 @@
+bool isPossible(vector<int> &arr,int d,int c,int n)
+{
+    int lastPlaced=arr[0];
+    c--;
+    for(int i=1;i<n;i++)
+    {
+        if(arr[i]-lastPlaced>=d)
+            c--,lastPlaced=arr[i];
+        if(c==0)
+            return true;
+    }
+    return false;
+}
+int chessTournament(vector<int> positions , int n ,  int c){
+	int ninjaLlaced=1;
+    sort(positions.begin(),positions.end());
+    int low=1,high=positions[n-1]-positions[0];
+    while(low<=high)
+    {
+        int mid=low+(high-low)/2;
+        if(isPossible(positions,mid,c,n))
+            low=mid+1;
+        else
+            high=mid-1;
+    }
+    return high;
+}
