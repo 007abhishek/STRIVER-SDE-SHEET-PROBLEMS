@@ -1,0 +1,75 @@
+class Trie{
+    public:
+    Trie *child[26];
+    int count=0;
+    bool isEnd;
+    Trie(){
+        
+    }
+    Trie *root=NULL;
+    void insert(string &word){
+        if(root==NULL)
+        {
+            Trie *temp=new Trie();
+            root=temp;
+        }
+        int n=word.length();
+        Trie *temp=root;
+        for(int i=0;i<n;i++)
+        {
+            if(temp->child[word[i]-'a']==NULL)
+                temp->child[word[i]-'a']=new Trie();
+            temp=temp->child[word[i]-'a'];
+        }
+        temp->count++;
+    }
+    
+    int countWordsEqualTo(string &word){
+        if(root==NULL)
+            return 0;
+        int n=word.length();
+        Trie *temp=root;
+        for(int i=0;i<n;i++)
+        {
+            if(temp->child[word[i]-'a']==NULL)
+                return 0;
+            temp=temp->child[word[i]-'a'];
+        }
+        return temp->count;
+    }
+    void DFS(Trie *temp,int &c)
+    {
+        c+=temp->count;
+        for(int i=0;i<26;i++)
+        {
+            if(temp->child[i])
+                DFS(temp->child[i],c);
+        }
+    }
+    int countWordsStartingWith(string &word){
+        if(root==NULL)
+            return 0;
+        int n=word.size();
+        Trie *temp=root;
+        for(int i=0;i<n;i++)
+        {
+            if(temp->child[word[i]-'a']==NULL)
+                return 0;
+            temp=temp->child[word[i]-'a'];
+        }
+        int c=temp->count;
+        for(int i=0;i<26;i++)
+        {
+            if(temp->child[i]!=NULL)
+                DFS(temp->child[i],c);
+        }
+        return c;
+    }
+    void erase(string &word){
+        int n=word.length();
+        Trie *temp=root;
+        for(int i=0;i<n;i++)
+            temp=temp->child[word[i]-'a'];
+        temp->count--;
+    }
+};
