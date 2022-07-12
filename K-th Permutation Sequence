@@ -1,0 +1,19 @@
+#include<algorithm>
+string kthPermutation(int n, int k) {
+    string ans="";
+    vector<int> arr(n,n);
+    int fact=1;
+    for(int i=1;i<n;i++)
+        fact*=i,arr[i-1]=i;
+    k--; 
+    while(true)
+    {
+        ans+=to_string(arr[k/fact]);
+        arr.erase(arr.begin()+k/fact);
+        if(arr.empty())
+            return ans;
+        k%=fact;
+        fact=fact/arr.size();
+    }
+    return "";
+}
