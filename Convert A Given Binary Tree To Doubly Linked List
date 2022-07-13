@@ -1,0 +1,47 @@
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+#include<stack>
+BinaryTreeNode<int>* BTtoDLL(BinaryTreeNode<int>* root) {
+    if(root==NULL)
+        return root;
+    BinaryTreeNode<int>*head=NULL,*prev=NULL;
+    stack<BinaryTreeNode<int>*> st;
+    
+    while(root)
+        st.push(root),root=root->left;
+    
+    while(!st.empty())
+    {
+        BinaryTreeNode<int>* curr=st.top();
+        st.pop();
+        if(head==NULL)
+            head=curr,prev=curr;
+        else
+        {
+            curr->left=prev;
+            prev->right=curr;
+            prev=curr;
+        }
+        curr=curr->right;
+        while(curr)
+            st.push(curr),curr=curr->left;
+    }
+    return head;
+}
