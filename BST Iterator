@@ -17,6 +17,8 @@
     };
 
 ************************************************************/
+O(N) Extra Space
+
 #include<bits/stdc++.h>
 class BSTiterator
 {
@@ -60,3 +62,34 @@ class BSTiterator
        print(iterator.next());
     }
 */
+
+************************************************************/
+O(H) Extra Space
+
+#include<stack>
+class BSTiterator
+{
+    public:
+    stack<TreeNode<int>*> st;
+    BSTiterator(TreeNode<int> *root)
+    {
+        while(root)
+            st.push(root),root=root->left;
+    }
+
+    int next()
+    {
+        TreeNode<int> *temp=st.top();
+        int ans=temp->data;
+        st.pop();
+        temp=temp->right;
+        while(temp)
+            st.push(temp),temp=temp->left;
+        return ans;
+    }
+
+    bool hasNext()
+    {
+        return !st.empty();
+    }
+};
