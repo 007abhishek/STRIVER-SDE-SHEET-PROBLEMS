@@ -1,0 +1,36 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include<bits/stdc++.h>
+int kthSmallest(TreeNode<int> *root, int k)
+{
+    stack<TreeNode<int> *> st;
+    while(root || !st.empty())
+    {
+        while(root)
+            st.push(root),root=root->left;
+        k--;
+        if(k==0)
+            break;
+        root=st.top();
+        st.pop();
+        root=root->right;
+    }
+    return st.top()->data;
+}
