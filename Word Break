@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+bool check(int i,int l,unordered_set<string> &us,string &s)
+{
+    if(i==l)
+        return true;
+    string word="";
+    for(;i<l;i++)
+    {
+        word+=s[i];
+        if(us.find(word)!=us.end())
+            return check(i+1,l,us,s);
+    }
+    return false;
+}
+bool wordBreak(vector < string > & arr, int n, string & target) {
+    int l=target.length();
+    unordered_set<string> us;
+    for(string s:arr)
+        us.insert(s);
+    
+    return check(0,l,us,target);   
+}
