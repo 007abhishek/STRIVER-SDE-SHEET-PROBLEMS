@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+void solve(int l,string s, unordered_set<string> &us,vector<string> &ans,string res)
+{
+    for(int i=1;i<=l;i++)
+    {
+        string prefix=s.substr(0,i);
+        if(us.find(prefix)!=us.end())
+        {
+            if(i==l)
+            {
+                res+=prefix;
+                ans.push_back(res);
+                return;
+            }
+            solve(l-i,s.substr(i,l-i),us,ans,res+prefix+" ");
+        }
+    }
+}
+vector<string> wordBreak(string &s, vector<string> &dictionary)
+{
+    unordered_set<string> us;
+    for(string s:dictionary)
+        us.insert(s);
+    
+    vector<string> ans;
+    int l=s.length();
+    solve(l,s,us,ans,"");
+    return ans;
+    
+}
