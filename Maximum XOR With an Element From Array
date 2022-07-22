@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+vector<int> maxXorQueries(vector<int> &arr, vector<vector<int>> &queries){
+	int n=queries.size();
+    vector<int> ans(n,-1);
+    sort(arr.begin(),arr.end());
+    int i=0,arrSize=arr.size();
+    while(i<n)
+    {
+        for(int j=0;j<arrSize;j++)
+        {
+            if(arr[j]>queries[i][1])
+                break;
+            ans[i]=max(ans[i],arr[j]^queries[i][0]);
+        }
+        i++;
+    }
+    return ans;
+}
