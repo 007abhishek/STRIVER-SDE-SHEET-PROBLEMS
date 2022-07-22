@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+void findMedian(int *arr, int n)
+{
+    if(n==0)
+        return;
+    cout<<arr[0]<<" ";
+    bool flag=true;
+    priority_queue<int> s;
+    priority_queue<int,vector<int>, greater<int>>g;
+    s.push(arr[0]);
+    for(int i=1;i<n;i++)
+    {
+        int curr=arr[i];
+        if(flag)
+        {
+            if(s.top()>curr)
+            {
+                g.push(s.top());
+                s.pop();
+                s.push(curr);
+            }
+            else
+                g.push(curr);
+            cout<<(s.top()+g.top())/2<<" ";
+        }
+        else
+        {
+            if(curr>s.top())
+            {
+                g.push(curr);
+                s.push(g.top());
+                g.pop();
+            }
+            else
+                s.push(curr);
+            cout<<s.top()<<" ";
+        }
+        flag=!flag;
+    }
+}
