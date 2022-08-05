@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+
+
+string serializeTree(TreeNode<int> *root)
+{
+ //    Write your code here for serializing the tree
+    if(root == NULL){
+        return "";
+    }
+    string ans;
+    queue<TreeNode<int> *>q;
+    q.push(root);
+    while(q.empty()==false){
+        TreeNode<int> * curr = q.front();
+        q.pop();
+        if(curr==NULL){
+            ans+="#,";
+            continue;
+            }
+           ans+= to_string(curr->data);
+            ans+=",";
+            q.push(curr->left);
+            q.push(curr->right);
+        
+    }
+    return ans;
+
+}
+
+TreeNode<int>* deserializeTree(string &seri)
+{
+ //    Write your code here for deserializing the tree
+    if(seri.size() == 0){
+        return NULL;
+    }
+    stringstream s(seri);
+    string str;
+    getline(s,str,',');
+    TreeNode<int>* root = new TreeNode<int>(stoi(str));
+    queue<TreeNode<int>*>q;
+    q.push(root);
+    while(q.empty()==false){
+        TreeNode<int>* curr = q.front();
+        q.pop();
+        getline(s,str,',');
+        if(str == "#"){
+            curr->left = NULL;
+        }
+        else{
+            TreeNode<int>* leftNode = new TreeNode<int> (stoi(str));
+            curr->left = leftNode;
+            q.push(leftNode);
+        }
+        getline(s,str,',');
+        if(str == "#"){
+            curr->right = NULL;
+        }
+        else{
+            TreeNode<int>* rightNode = new TreeNode<int> (stoi(str));
+            curr->right = rightNode;
+            q.push(rightNode);
+        }
+    }
+    return root;
+
+}
