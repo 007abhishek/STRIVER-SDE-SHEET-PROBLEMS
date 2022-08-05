@@ -1,0 +1,36 @@
+bool DFS(int i,vector<int> adj[],vector<bool> &visited,vector<bool> &visdfs)
+{
+    visited[i]=true;
+    visdfs[i]=true;
+    for(int x:adj[i])
+    {
+        if(!visited[x])
+        {
+            if(DFS(x,adj,visited,visdfs))
+                return true;
+        }
+        else if(visdfs[x])
+            return true;
+    }
+    visdfs[i]=false;
+    return false;
+}
+
+int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+    vector<int> adj[n+1];
+    for(auto p:edges)
+        adj[p.first].push_back(p.second);
+    
+    vector<bool>visited(n+1,false),visdfs(n+1,false);
+    
+    
+    for(int i=1;i<=n;i++)
+    {
+        if(!visited[i])
+        {
+            if(DFS(i,adj,visited,visdfs))
+                return true;
+        }
+    }
+    return false;
+}
