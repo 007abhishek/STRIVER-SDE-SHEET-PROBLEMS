@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+class LRUCache
+{
+    class Node {
+    public: 
+        int key;
+        int value;
+        Node* next;
+        Node* prev;
+        Node(int k, int v) : key(k), value(v), next(nullptr), prev(nullptr)
+        { }
+    };
+    int size;
+    Node *least;
+    Node *freq;
+    unordered_map<int, Node*> umap;
+public:
+    LRUCache(int capacity) : size(capacity)
+    {
+        // Write your code here
+        least = new Node(-1, -1);
+        freq = new Node(-1, -1);
+        least->next = freq;
+        freq->prev = least;
+    }
+
+    int get(int key)
+    {
+        // Write your code here
+
+        if(umap.find(key) == umap.end()) {
+
+            return -1;
+        }
+        Node *n = umap[key];
+        Node *prev = n->prev;
+        Node *next = n->next;
+        prev->next = next;
+        next->prev = prev;
+        next = this->freq->prev;
+        next->next = n;
+        n->prev = next;
+        n->next = this->freq;
+        this->freq->prev = n;
+        return n->value;
+    }
+
+    void put(int key, int value)
+    {
+        // Write your code here
+        Node *n = nullptr;
+        auto p = umap.find(key);
+        if(p != umap.end()) {
+            p->second->value = value;
+            n = p->second;
+            n->prev->next = n->next;
+            n->next->prev = n->prev;
+        }
+        else if(umap.size() == size) {
+
+            umap.erase(least->next->key);
+            least->next->next->prev = least;
+            least->next = least->next->next;
+        }
+        if(n == nullptr) n = new Node(key, value);
+        umap[key] = n;
+        n->next = this->freq;
+        n->prev = this->freq->prev;
+        this->freq->prev->next = n;
+        this->freq->prev = n;
+
+    }
+};
